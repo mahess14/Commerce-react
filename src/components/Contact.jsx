@@ -4,7 +4,7 @@ import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock } from "react-icons/fa";
 
 <FaMapMarkerAlt />
 const Contact = () => {
-   const API_URL = "https://commerce-backend.onrender.com/api/contact"; 
+   const API_URL = "http://localhost:5000/api/contact"; 
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
