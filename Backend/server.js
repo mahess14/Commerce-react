@@ -7,21 +7,30 @@ const contactRoutes = require("./routes/contactRoutes");
 
 const app = express();
 
-app.use(cors());
+// ✅ CORS (allow Netlify frontend)
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST"],
+}));
+
+// ✅ Middleware
 app.use(express.json());
 
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log("MongoDB error:", err));
+// ✅ MongoDB Connection (FIXED)
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.log("❌ MongoDB error:", err));
 
+// ✅ Routes
 app.use("/api", contactRoutes);
 
+// ✅ Test route
 app.get("/", (req, res) => {
-  res.send("Backend is running");
+  res.send("🚀 Backend is running");
 });
 
+// ✅ Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
