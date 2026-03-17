@@ -1,12 +1,15 @@
 import React from "react";
+     import video from "../assets/ai.mp4";
 
 function HeroVideo() {
   return (
     <section className="video-hero" id="home">
       
-      <video autoPlay muted loop playsInline>
-        <source src="/videos/ai.mp4" type="video/mp4" />
-      </video>
+
+
+<video autoPlay muted loop>
+  <source src={video} type="video/mp4" />
+</video>
 
       <div className="video-overlay">
         <h1>

@@ -1,42 +1,36 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+require("dotenv").config();
+
+const contactRoutes = require("./routes/contactRoutes");
 
 const app = express();
 
-// Middleware
-app.use(express.json());
+// ✅ CORS (allow Netlify frontend)
 app.use(cors({
-  origin: "*", // later you can restrict to Netlify URL
+  origin: "*",
+  methods: ["GET", "POST"],
 }));
 
-// MongoDB Connection
-mongoose.connect("YOUR_MONGO_URI")
-.then(() => console.log("MongoDB Connected"))
-.catch(err => console.log(err));
+// ✅ Middleware
+app.use(express.json());
 
-// Schema
-const ContactSchema = new mongoose.Schema({
-  name: String,
-  phone: String,
-  email: String,
-  service: String,
-  message: String
+// ✅ MongoDB Connection (FIXED)
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.log("❌ MongoDB error:", err));
+
+// ✅ Routes
+app.use("/api", contactRoutes);
+
+// ✅ Test route
+app.get("/", (req, res) => {
+  res.send("🚀 Backend is running");
 });
 
-const Contact = mongoose.model("Contact", ContactSchema);
-
-// API Route
-app.post("/api/contact", async (req, res) => {
-  try {
-    const newContact = new Contact(req.body);
-    await newContact.save();
-    res.status(200).json({ message: "Form submitted successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "Error submitting form" });
-  }
+// ✅ Start server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
-
-// Server Start
-const PORT = 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

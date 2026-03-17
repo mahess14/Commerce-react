@@ -3,37 +3,50 @@ import axios from "axios";
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock } from "react-icons/fa";
 
 <FaMapMarkerAlt />
-
-
 const Contact = () => {
-
+   const API_URL = "http://localhost:5000/api/contact"; 
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
     service: "",
-    message: ""
+    message: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
-      await axios.post(
-        "https://your-backend.onrender.com/api/contact", // 🔥 IMPORTANT
-        formData
-      );
+        const response = await axios.post(API_URL, formData, {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          });
 
-      alert("Form submitted successfully");
+      alert(response.data.message || "Form submitted successfully!");
+
+      setFormData({
+        name: "",
+        phone: "",
+        email: "",
+        service: "",
+        message: "",
+      });
     } catch (error) {
+      console.error("Submit error:", error);
       alert("Error submitting form");
+    } finally {
+      setLoading(false);
     }
   };
 
