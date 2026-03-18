@@ -9,9 +9,9 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "ISC",5000
   "type": "commonjs",
-  
+
   "dependencies": {
     "body-parser": "^2.2.2",
     "cors": "^2.8.6",
