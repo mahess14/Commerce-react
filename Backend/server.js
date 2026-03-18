@@ -17,9 +17,15 @@ app.use(cors({
 app.use(express.json());
 
 // ✅ MongoDB Connection (FIXED)
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB connected"))
-  .catch((err) => console.log("❌ MongoDB error:", err));
+
+
+
+
+  mongoose.connect(process.env.MONGO_URI, {
+  dbName: "commerce_maestro", // 🔥 IMPORTANT FIX
+})
+.then(() => console.log("✅ MongoDB connected"))
+.catch((err) => console.log("❌ MongoDB error:", err));
 
 // ✅ Routes
 app.use("/api", contactRoutes);
