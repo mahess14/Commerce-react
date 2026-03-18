@@ -32,7 +32,7 @@ app.use("/api", contactRoutes);
 
 // ✅ Test route
 app.get("/", (req, res) => {
-  res.send("🚀 Backend is running");
+  res.send("🚀 Backend is running mahesh");
 });
 
 // ✅ Start server
