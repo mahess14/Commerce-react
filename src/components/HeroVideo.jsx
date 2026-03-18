@@ -1,12 +1,41 @@
-import React from "react";
+  import React, { useEffect, useState } from "react";
+  import "./hero.css";
+
+      
+   
+
+
+const slides = [
+  { type: "image", src: "/images/frame_1.png" },
+  { type: "image", src: "/images/frame_2.png" },
+  { type: "image", src: "/images/frame_3.png" },
+  { type: "image", src: "/images/frame_4.png" },
+  { type: "image", src: "/images/frame_5.png" }
+];
 
 function HeroVideo() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % slides.length);
+    }, 4000); // ✅ 4 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="video-hero" id="home">
       
-      <video autoPlay muted loop playsInline>
-        <source src="https://github.com/mahess14/Commerce-react/issues/1#issue-4095564936" type="video/mp4" />
-      </video>
+      {/* Slides */}
+      {slides.map((slide, i) => (
+        <div
+          key={i}
+          className={`slide ${i === index ? "active" : ""}`}
+        >
+          <img src={slide.src} alt={`slide-${i}`} />
+        </div>
+      ))}
 
       <div className="video-overlay">
         <h1>
