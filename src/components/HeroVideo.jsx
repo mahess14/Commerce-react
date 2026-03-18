@@ -5,7 +5,7 @@ function HeroVideo() {
     <section className="video-hero" id="home">
       
       <video autoPlay muted loop playsInline>
-        <source src="/videos/ai.mp4" type="video/mp4" />
+        <source src="https://github.com/mahess14/Commerce-react/issues/1#issue-4095564936" type="video/mp4" />
       </video>
 
       <div className="video-overlay">
